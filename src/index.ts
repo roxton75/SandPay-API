@@ -12,7 +12,7 @@ import QRCode from "qrcode";
 
 const app = Fastify({ logger: true });
 
-const EXPIRY_MINUTES = 2;
+const EXPIRY_MINUTES = 5;
 
 app.get("/health", async () => {
   return { status: "ok" };
