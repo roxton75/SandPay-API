@@ -1,7 +1,20 @@
+// import { initSocket, getIO } from "./socket";
+// import Fastify from "fastify";
+// import dotenv from "dotenv";
+// dotenv.config();
+// import { generateToken } from "./utils/jwt";
+// import { sendWebhook } from "./utils/webhook";
+// import { connectDB } from "./db";
+// import { Merchant } from "./models/Merchant";
+// import { Order } from "./models/Order";
+// import { authenticateMerchant } from "./middleware/auth";
+// import QRCode from "qrcode";
 import { initSocket, getIO } from "./socket";
 import Fastify from "fastify";
 import dotenv from "dotenv";
+import cors from "@fastify/cors";
 dotenv.config();
+
 import { generateToken } from "./utils/jwt";
 import { sendWebhook } from "./utils/webhook";
 import { connectDB } from "./db";
@@ -168,8 +181,15 @@ const startServer = async () => {
   try {
     await connectDB();
 
-    const server = await app.listen({ port: 3000 });
-    console.log("Server running on http://localhost:3000");
+    await app.register(cors, {
+      origin: true,
+    });
+
+    const PORT = Number(process.env.PORT) || 4000;
+
+    await app.listen({ port: PORT, host: "0.0.0.0" });
+
+    console.log("Server running on http://localhost:4000");
 
     initSocket(app.server); // ✅ THIS IS IMPORTANT
   } catch (error) {

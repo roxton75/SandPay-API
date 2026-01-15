@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const SOCKET_URL = "http://localhost:3000";
+const SOCKET_URL = "http://localhost:4000";
 const ORDER_ID = "ORD_1768389446982";
 
 const socket = io(SOCKET_URL);
